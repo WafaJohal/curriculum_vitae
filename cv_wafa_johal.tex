@@ -1,0 +1,704 @@
+
+
+% Don't like 10pt? Try 11pt or 12pt
+\documentclass[10pt]{article}
+\RequirePackage[T1]{fontenc}
+%\usepackage{pbox}
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+%\usepackage{times}
+\usepackage[bitstream-charter,euro]{mathdesign}
+\usepackage{calc}
+
+
+\usepackage[shortcuts]{extdash}
+
+% Layout: Puts the section titles on left side of page
+\reversemarginpar
+
+
+
+%% Use these lines for letter-sized paper
+\usepackage[paper=a4paper,
+            %includefoot, % Uncomment to put page number above margin
+            marginparwidth=1in,     % Length of section titles
+            marginparsep=.05in,       % Space between titles and text
+            margin=1cm,               % 1 inch margins
+            includemp]{geometry}
+
+%% Use these lines for A4-sized paper
+%\usepackage[paper=a4paper,
+%            %includefoot, % Uncomment to put page number above margin
+%            marginparwidth=30.5mm,    % Length of section titles
+%            marginparsep=1.5mm,       % Space between titles and text
+%            margin=25mm,              % 25mm margins
+%            includemp]{geometry}
+
+%% More layout: Get rid of indenting throughout entire document
+\setlength{\parindent}{0in}
+
+% Provides special list environments and macros to create new ones
+\usepackage[shortlabels]{enumitem}
+
+% Simpler bibsections for CV sections
+% (thanks to natbib for inspiration)
+%
+% * For lists of references with hanging indents and no numbers:
+%
+%   \begin{bibsection}
+%       \item ...
+%   \end{bibsection}
+%
+% * For numbered lists of references (with hanging indents):
+%
+%   \begin{bibenum}
+%       \item ...
+%   \end{bibenum}
+%
+%   Note that bibenum numbers continuously throughout. To reset the
+%   counter, use
+%
+%   \restartlist{bibenum}
+%
+%   at the place where you want the numbering to reset.
+
+\makeatletter
+\newlength{\bibhang}
+\setlength{\bibhang}{1em}
+\newlength{\bibsep}
+ {\@listi \global\bibsep\itemsep \global\advance\bibsep by\parsep}
+\newlist{bibsection}{itemize}{3}
+\setlist[bibsection]{label=,leftmargin=\bibhang,%
+        itemindent=-\bibhang,
+        itemsep=\bibsep,parsep=\z@,partopsep=0pt,
+        topsep=0pt}
+\newlist{bibenum}{enumerate}{3}
+\setlist[bibenum]{label=[\arabic*],resume,leftmargin={\bibhang+\widthof{[999]}},%
+        itemindent=-\bibhang,
+        itemsep=\bibsep,parsep=\z@,partopsep=0pt,
+        topsep=0pt}
+\let\oldendbibenum\endbibenum
+\def\endbibenum{\oldendbibenum\vspace{-.6\baselineskip}}
+\let\oldendbibsection\endbibsection
+\def\endbibsection{\oldendbibsection\vspace{-.6\baselineskip}}
+\makeatother
+
+%% Reference the last page in the page number
+%
+% NOTE: comment the +LP line and uncomment the -LP line to have page
+%       numbers without the ``of ##'' last page reference)
+%
+% NOTE: uncomment the \pagestyle{empty} line to get rid of all page
+%       numbers (make sure includefoot is commented out above)
+%
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+\pagestyle{empty}      % Uncomment this to get rid of page numbers
+\fancyhf{}\renewcommand{\headrulewidth}{0pt}
+\fancyfootoffset{\marginparsep+\marginparwidth}
+\newlength{\footpageshift}
+\setlength{\footpageshift}
+          {0.5\textwidth+0.5\marginparsep+0.5\marginparwidth-2in}
+\lfoot{\hspace{\footpageshift}%
+       \parbox{4in}{\, \hfill %
+                    \arabic{page} of \protect\pageref*{LastPage} % +LP
+%                    \arabic{page}                               % -LP
+                    \hfill \,}}
+
+% Finally, give us PDF bookmarks
+\usepackage{color,hyperref}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
+\hypersetup{colorlinks,breaklinks,
+            linkcolor=darkblue,urlcolor=darkblue,
+            anchorcolor=darkblue,citecolor=darkblue}
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% HEADING AT TOP OF CURRICULUM VITAE
+
+% The title (name) with a horizontal rule under it
+% (optional argument typesets an object right-justified across from name
+%  as well)
+%
+% Usage: \makeheading{name}
+%        OR
+%        \makeheading[right_object]{name}
+%
+% Place at top of document. It should be the first thing.
+% If ``right_object'' is provided in the square-braced optional
+% argument, it will be right justified on the same line as ``name'' at
+% the top of the CV. For example:
+%
+%      \makeheading[\emph{Curriculum vitae}]{Your Name}
+%
+% will put an emphasized ``Curriculum vitae'' at the top of the document
+% as a title. Likewise, a picture could be included:
+%
+%   \makeheading[{\includegraphics[height=1.5in]{my_picture}}]{Your Name}
+%
+% the picture will be flush right across from the name. For this example
+% to work, make sure the extra set of curly braces is included. Also
+% makes ure that \usepackage{graphicx} is somewhere in the preamble.
+\newcommand{\makeheading}[2][]%
+        {\hspace*{-\marginparsep minus \marginparwidth}%
+         \begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
+             {\large \bfseries #2 \hfill #1}\\[-0.15\baselineskip]%
+                 \rule{\columnwidth}{1pt}%
+         \end{minipage}}
+
+%%% SECTION HEADINGS
+
+% The section headings. Flush left in small caps down pseudo-margin.
+%
+% Usage: \section{section name}
+\renewcommand{\section}[1]{\pagebreak[3]%
+    \vspace{1.3\baselineskip}%
+    \phantomsection\addcontentsline{toc}{section}{#1}%
+    \noindent\llap{\scshape\smash{\parbox[t]{\marginparwidth}{\hyphenpenalty=10000\raggedright #1}}}%
+    \vspace{-\baselineskip}\par}
+
+%%% LISTS
+
+% This macro alters a list by removing some of the space that follows the list
+% (is used by lists below)
+\newcommand*\fixendlist[1]{%
+    \expandafter\let\csname preFixEndListend#1\expandafter\endcsname\csname end#1\endcsname
+    \expandafter\def\csname end#1\endcsname{\csname preFixEndListend#1\endcsname\vspace{-0.6\baselineskip}}}
+
+% These macros help ensure that items in outer-type lists do not get
+% separated from the next line by a page break
+% (they are used by lists below)
+\let\originalItem\item
+\newcommand*\fixouterlist[1]{%
+    \expandafter\let\csname preFixOuterList#1\expandafter\endcsname\csname #1\endcsname
+    \expandafter\def\csname #1\endcsname{\let\oldItem\item\def\item{\pagebreak[2]\oldItem}\csname preFixOuterList#1\endcsname}
+    \expandafter\let\csname preFixOuterListend#1\expandafter\endcsname\csname end#1\endcsname
+    \expandafter\def\csname end#1\endcsname{\let\item\oldItem\csname preFixOuterListend#1\endcsname}}
+\newcommand*\fixinnerlist[1]{%
+    \expandafter\let\csname preFixInnerList#1\expandafter\endcsname\csname #1\endcsname
+    \expandafter\def\csname #1\endcsname{\let\oldItem\item\let\item\originalItem\csname preFixInnerList#1\endcsname}
+    \expandafter\let\csname preFixInnerListend#1\expandafter\endcsname\csname end#1\endcsname
+    \expandafter\def\csname end#1\endcsname{\csname preFixInnerListend#1\endcsname\let\item\oldItem}}
+
+% An itemize-style list with lots of space between items
+%
+% Usage:
+%   \begin{outerlist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{outerlist}
+\newlist{outerlist}{itemize}{3}
+    \setlist[outerlist]{label=\enskip\textbullet,leftmargin=*}
+    \fixendlist{outerlist}
+    \fixouterlist{outerlist}
+
+% An environment IDENTICAL to outerlist that has better pre-list spacing
+% when used as the first thing in a \section
+%
+% Usage:
+%   \begin{lonelist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{lonelist}
+\newlist{lonelist}{itemize}{3}
+    \setlist[lonelist]{label=\enskip\textbullet,leftmargin=*,partopsep=0pt,topsep=0pt}
+    \fixendlist{lonelist}
+    \fixouterlist{lonelist}
+
+% An itemize-style list with little space between items
+%
+% Usage:
+%   \begin{innerlist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{innerlist}
+\newlist{innerlist}{itemize}{3}
+    \setlist[innerlist]{label=\enskip\textbullet,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
+    \fixinnerlist{innerlist}
+
+% An environment IDENTICAL to innerlist that has better pre-list spacing
+% when used as the first thing in a \section
+%
+% Usage:
+%   \begin{loneinnerlist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{loneinnerlist}
+\newlist{loneinnerlist}{itemize}{3}
+    \setlist[loneinnerlist]{label=\enskip\textbullet,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
+    \fixendlist{loneinnerlist}
+    \fixinnerlist{loneinnerlist}
+
+%%% EXTRA SPACE
+
+% To add some paragraph space between lines.
+% This also tells LaTeX to preferably break a page on one of these gaps
+% if there is a needed pagebreak nearby.
+\newcommand{\blankline}{\quad\pagebreak[3]}
+\newcommand{\halfblankline}{\quad\vspace{-0.5\baselineskip}\pagebreak[3]}
+
+%%% FORMATTING MACROS
+
+% Provides a linked \doi{#1} that links doi:#1 to http://dx.doi.org/#1
+\usepackage{doi}
+% To change the text before the DOI, adjust this command
+%\renewcommand\doitext{doi:}
+
+% Provides a linked \url{#1} that doesn't require escape characters
+\usepackage{url}
+
+% You can adjust the style \url{} uses here:
+% (options are: same, rm, sf, tt; defaults to tt)
+\urlstyle{same}
+
+% For \email{ADDRESS}, links ADDRESS to the url mailto:ADDRESS
+% (uncomment to typeset the e\-/mail address in typewriter font;
+%  otherwise, will be typeset in the \urlstyle above)
+%\DeclareUrlCommand\emaillink{\urlstyle{tt}}
+\providecommand*\emaillink[1]{\nolinkurl{#1}}
+\providecommand*\email[1]{\href{mailto:#1}{\emaillink{#1}}}
+
+\providecommand\BibTeX{{B\kern-.05em{\sc i\kern-.025em b}\kern-.08em \TeX}}
+\providecommand\Matlab{\textsc{Matlab}}
+
+% Custom hyphenation rules for words that LaTeX has trouble with
+\hyphenation{bio-mim-ic-ry bio-in-spi-ra-tion re-us-a-ble pro-vid-er Media-Wiki}
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Begin CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\makeheading{Wafa Johal }
+
+\section{Contact Information}
+
+% NOTE: Mind where the & separators and \\ breaks are in the following
+%       table. Table is one row made up of three parboxes. The left
+%       parbox has address info, the middle parbox has a vertical bar,
+%       and the right parbox has phone and electronic contact
+%       information.
+%
+% MACROS: \rcollength is the width of the right column of the table
+%             (adjust it to your liking; default is 1.85in).
+%         \spacewidth is width of area between left and right boxes.
+%
+\newlength{\rcollength}\setlength{\rcollength}{1.85in}%
+\newlength{\spacewidth}\setlength{\spacewidth}{20pt}
+%
+\begin{tabular}[t]{@{}p{\textwidth-\rcollength-\spacewidth}@{}p{\spacewidth}@{}p{\rcollength}}%
+
+% Address box
+\parbox{\textwidth-\rcollength-\spacewidth}{%
+PostDoctoral Scientist\\
+\href{http://chili.epfl.ch}{CHILI Lab} - \href{http://epfl.ch}{Ecole Polytechnique Federal de Lausanne}\\
+\\
+EPFL IC ISIM CHILI \\
+RLC D1 740 (Rolex Learning Center) \\
+Station 20 \\
+CH-1015 Lausanne, SUISSE}
+
+&
+% Uncomment to add a vertical bar in middle of contact information
+%{\vrule width 0.5pt}
+\parbox[m][5\baselineskip]{\spacewidth}{} &
+
+% Non-snail-mail contact information
+\parbox{\rcollength}{%
+\textit{Mobile:} +33-6 69 69 48 16 \\
+\textit{E-mail:} \email{wafa.johal@gmail.com}\\
+\textit{WWW:} \href{http://wafa.johal.fr/}{wafa.johal.fr}}
+
+\end{tabular}
+
+%%
+%% In modern CV's, it seems like ``Objective'' is frowned upon. Instead,
+%% incorporate it into a well-constructed cover letter. The ``More
+%% information'' can go at the end of the CV, but it should not distract
+%% from the section giving references available to contact.
+%%
+%
+% \section{Objective}
+%
+% Placement in an academic position (i.e., faculty, postdoctoral, or
+% research scientist) that allows for advanced research in distributed
+% complex adaptive systems (i.e., modeling, analysis, design, and
+% verification) with a particular focus on the control of engineered
+% agents (e.g., for communications, control, software, electronics, and
+% sustainability) and the analysis of biological phenomena (e.g.,
+% self-organization, ecological rationality)
+% \begin{innerlist}
+% \item More information and auxiliary documents can be found at\\\url{http://www.tedpavlic.com/facjobsearch/}
+% \end{innerlist}
+
+\section{Research Interests}
+I am interested in personalization using  non-verbal cues of communication during Human-Robot Interaction. 
+I believe that personalization of robots' behaviours will improve acceptability. I work with robots having various embodiment and try to base my models on social sciences and cognitive sciences. 
+I also have interest in affective computing, learning, symbolic reasoning and integration of companion robots in smart homes. 
+I have conducted child-robot interactions experiments from protocole design to data analysis.
+
+\section{Academia}
+
+\href{http://www.univ-grenoble-alpes.fr/}{\textbf{University of Grenoble Alps}}, \href{http://liglab.fr}{Laboratory of Informatics of Grenoble} - \href{http://magma.imag.fr}{MAGMA Team} France
+\begin{outerlist}
+
+\item[] Ph.D. Student in Computer Sciences, October 2012 - October 2015
+        \begin{innerlist}
+        \item Thesis Topic: \emph{Behavioural Styles for Human-Robot Interaction: Towards Plasticity in HRI}
+        \item Advisers:
+              \href{http://magma.imag.fr/content/sylvie-pesty}
+                   {Prof. Sylvie Pesty} \& 
+              \href{http://iihm.imag.fr/calvary/}
+                   {Prof. Gaëlle Calvary}
+        \item Area of Study : Affective Computing, Human-Robot Interaction, Personalisation, Plasticity
+        \end{innerlist}
+
+\end{outerlist}
+\vspace{0.5cm}
+\href{https://www.ujf-grenoble.fr/?language=en}{\textbf{University Joseph Fourier}, Grenoble}, France
+\begin{outerlist}
+\item[] M.S.,
+        %\href{http://www.ece.osu.edu/}
+             {Computer Sciences: Graphics, Vision \& Robotics}, June 2012
+        \begin{innerlist}
+        \item Thesis Topic: \emph{Multi-modal detection of intention of interaction by a companion robot}
+        \item Adviser:
+              \href{https://team.inria.fr/prima/vaufreydaz/}
+                   {Dr. Dominique Vaufreydaz}
+        \item Area of Study : Activity Recognition, Multi-modal Data Fusion
+        \end{innerlist}
+
+\end{outerlist}
+\vspace{0.5cm}
+\href{http://www.upmf-grenoble.fr/}{\textbf{ Pierre-Mendès France University}, Grenoble},France
+\begin{outerlist}
+
+\item[] B.S. B.A. Mathematics and Informatics applied to Cognitive Sciences, June 2010
+        \begin{innerlist}
+        \item \emph{Topped, Summa cum Laude}
+        \item Mathematics : Linear Algebra, Logic, Probabilities, Statistics
+        \item Computer Sciences : Algorithms \& Programming
+        \item Cognitive Sciences: Memory, Learning \& Perception
+        \end{innerlist}
+        Exchange Student for one year in Washington College, MA (U.S.A.), 2009-2010
+
+\end{outerlist}
+
+
+
+% \section{Submitted Journal Publications}
+%
+% % Add a little space to nudge next ``Ref'd Journal Publications'' marginpar
+% % down to make room for tall ``Submitted Journal Publications''
+% % marginpar. If there are enough submitted journal publications, this
+% % space will not be needed (and should be removed).
+% \vspace{0.1in}
+
+\section{ Journal Publications}
+
+\begin{bibenum}
+    \item Vaufreydaz D., \textbf{Johal W}., and Combe C.,
+   Starting engagement detection towards a companion robot using multimodal features, \emph{Robotics and Autonomous} Systems, January 2015, \href{http://dx.doi.org/10.1016/j.robot.2015.01.004}{ISSN 0921-8890}.
+\end{bibenum}
+
+
+\vspace{0.1in}
+
+\section{International Conference Publications}
+
+\begin{bibenum}
+	
+\item Ta V.C, \textbf{Johal W}., Portaz M., Castelli E., Vaufreydaz D., The Grenoble system for the Social Touch Challenge at ICMI 2015. International Conference on Multimodal Interaction. (ICMI2015). [In accepted] 
+	
+	
+\item  \textbf{Johal W}., Calvary G., Pesty S., Non-verbal Signals in HRI: Interfer- ence in Human Perception. International Conference on Social Robotics. (ICSR2015). [In accepted] 
+	
+	
+\item  \textbf{Johal W.}, Pellier D., Adam C., Fiorino H., Pesty S., A Cognitive and Affective Architecture for Social Human-Robot Interaction. HRI'15 Extended Abstracts. \href{http://doi.acm.org/10.1145/2701973.2702006}{DOI=10.1145/2701973.2702006 }  [Award Nominee]	
+
+\item  \textbf{Johal W.}, Robots Interacting with Style. HRI'15 Extended Abstracts.\href{http://doi.acm.org/10.1145/2701973.2702706}{DOI=10.1145/2701973.2702706}   
+
+\item \textbf{Johal W.}, Calvary G., Pesty S., Toward Companion Robots Behaving with Style. \emph{In Proceedings of the 2014 IEEE International Symposium on Robot and Human Interactive Communication} (ROMAN). Edinburgh. 2014. \href{ http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6926393&isnumber=6926219}{doi: 10.1109/ROMAN.2014.6926393}
+
+\item \textbf{Johal W.}, Adam C., Fiorino H., Pesty, S., Duhaut D.. Acceptability of a companion
+robot for children in daily life
+situations \emph{5th IEEE Conference on Cognitive InfoCommunications}. (CogInfoCom) Nov 2014. Vietri, Italy. \href{http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7020474&isnumber=7020399}{doi: 10.1109/CogInfoCom.2014.7020474}
+
+
+\item \textbf{Johal W.}, Calvary G. and  Pesty S.. A Robot with Style because you are Worth it!.  \emph{In CHI '14 Extended Abstracts on Human Factors in Computing Systems} (CHI EA '14). Toronto, Canada. \href{http://doi.acm.org/10.1145/2559206.2581229}{DOI=10.1145/2559206.2581229}
+
+\item \textbf{Johal W.}, Dugdale J.,  Pesty S.. Modelling interactions in a mixed agent world. In Proceeding of 25th \emph{European Modeling and Simulation Symposium} (EMSS). Athens, Greece, 23-25 Sept 2013
+
+\item  \textbf{Benkaouar (Johal) W.}, Vaufreydaz D.. Multi-sensors engagement detection with a robot companion in a home environment. \emph{Workshop on Assistance and Service Robotics in a Human Environment at IEEE International Conference on Intelligent Robots and Systems} (IROS2012), Vilamoura, Algarve - Portugal, oct 2012.
+
+  
+
+\end{bibenum}
+
+\section{French Conference Publications}
+
+\begin{bibenum}
+\item \textbf{Johal W.}, Pesty, S., Calvary G., Des Styles pour une Personnalisation de l’Interaction Homme-Robot. \emph{Journées Nationales de la Robotique Interactive} (JNRI). Nov. 2014. Toulouse, France
+
+\item \textbf{Johal W.}, Pesty S. Calvary G., Les Styles pour la Plasticité des Robots Compagnons. \emph{Workshop Affect, Compagnon Artificiel, Interaction} (WACAI) 2014. Rouen, France 
+
+\item Adam C.,  \textbf{Johal W.}, Ben-Farhat I., Jost C., Fiorono H.,  Pesty S. , Duhaut D.. Acceptabilité d'un robot compagnon dans des situations de la vie quotidienne. \emph{ Deuxième conférence III - Intercompréhension de l'intraspécifique à l'interspécifique}. Lorient, 30 Sept - 1Oct 2013
+
+  
+
+\end{bibenum}
+
+\section{Other \\ Publications}
+
+\begin{bibenum}
+\item \textbf{Johal W.}, Pesty S.,  Calvary G.. Expressing Parenting Styles with Companion Robots. \emph{Workshop on Applications for Emotional Robots at Human-Robot Interaction conference} (HRI’14) . Bielefeld. 2014
+
+\end{bibenum}
+
+%
+%\section{Papers in Preparation}
+%
+%\begin{bibenum}
+%   
+%	\item  Johal W., Pellier D., Adam C., Fiorino H., Pesty S.. A Cognitive and Affective Architecture for Social Human-Robot Interaction. \emph{Late Breaking Report Human-Robot Interaction conference} (HRI'2015)	[accepted]
+%	\item  Johal W.. Robots Interacting with Style. \emph{Pioneers of Human-Robot Interaction Conference} (HRI Pioneers '2015)	[accepted]
+%	
+%	
+%\end{bibenum}
+
+\section{Intern Tutoring}
+
+\begin{itemize}
+    \item[] \textbf{Jérémy Lascaux},
+        Under-Graduate Student in Computer Sciences, IUT2- UPMF.
+        Developing an Affective Math Game with Nao Robot.
+        Spring 2014.
+	  \item[] \textbf{Anshul Singh Parihar},
+	  Electrical Engineering, Indian Institute of Technology, Jodhpur India
+	  Agent-Based Simulation of Human-Robot Interaction for Experiment Design.
+	  Spring 2014.
+
+\end{itemize}
+
+\section{Teaching}
+
+\href{http://www.grenoble-inp.fr/grenoble-institute-of-technology-9224.kjsp?RH=INPG_FR}{\textbf{Grenoble Institute of Technology}}, France
+\begin{outerlist}
+\item[] \textit{Teaching Assistant}%
+    \hfill \textbf{October~2012 - July~2014}
+    \begin{innerlist}
+        \item Instructor for ACVL: Software’s Analysis, Conception and Validation.
+            %
+            \begin{innerlist}
+                \item Methods for Requirement Analysis
+                \item Software Design Patterns
+                \item UML Diagrams and Object Constraint Language 
+            \end{innerlist}
+          \item Instructor for Introduction to Programming
+            \begin{innerlist}
+                 \item OCaml and Python
+                 \item Begining of complexity analysis
+             \end{innerlist}
+    \end{innerlist}
+\end{outerlist}
+\halfblankline
+
+\href{http://www.upmf-grenoble.fr/}{\textbf{Pierre Mendès-France University}},
+Grenoble, France  \hfill \textbf{October 2013- January~2014}
+\begin{outerlist}
+
+\item[] %\textit{Teaching Assistant}%
+   
+    \begin{innerlist}
+        \item Instructor for INF f-1: Undergraduate Beginner Programming, Lectures \& Practical Sessions
+       
+    \end{innerlist}
+
+\end{outerlist}
+
+\halfblankline
+
+\href{https://www.ujf-grenoble.fr/}{\textbf{Joseph Fourrier University}},
+Grenoble, France    \hfill \textbf{October 2011- January~2012}
+\begin{outerlist}
+
+\item[] %\textit{Teaching Assistant}%
+ 
+    \begin{innerlist}
+        \item Instructor for Biology Undergraduates:  C2i, Burautic, Basic HTML,  Lectures \& Practical Sessions
+       
+    \end{innerlist}
+
+\end{outerlist}
+\section{Academic Services}
+
+\textbf{Conferences \& Events }
+\begin{innerlist}
+     \item Member of Organisation Committee,
+            ``Workshop Affect, Compagnon Artificiel, Interaction '',
+            \href{http://wacai2012.imag.fr/}{WACAI 2012} 
+            Grenoble, France - 15 et 16 November 2012.
+      \item Member of Organisation Committee,
+           \href{http://persycup.imag.fr/}{PersyCup Robotic Challenge} 
+                  Grenoble, France - 21 Mai 2015.
+\end{innerlist}
+
+\halfblankline
+
+\textbf{Reviews }
+\begin{innerlist}
+\item \emph{Journal on Interaction Studies}, 2016
+	  \item \emph{International Conference on Social Robotics (ICSR)}, 2015
+	  \item \emph{International Conference on Human Robot Interaction (HRI)}, 2015, 2016
+    \item \emph{IEEE International Symposium on Robot and Human Interactive Communication (RO-MAN)}, 2014, 2015
+  
+    
+\end{innerlist}
+
+%\halfblankline
+
+
+
+
+\section{Language}
+%Language:
+%
+\begin{innerlist}
+    \item French : Mother tongue
+    \item English : Fluent - TOEFL, 1 year in USA, Masters taught in English
+\end{innerlist}
+
+
+
+%Robotics Platforms:
+%%
+%\begin{innerlist}
+%    \item \href{http://reeti.fr/index.php/fr/}{Reeti} : PC-Bot with mounted motorized and expressive head By \href{http://www.robopec.com/}{Robopec}
+%    \item \href{http://www.robosoft.com/robotic-solutions/healthcare/kompai/index.html}{Kompai} :  a robot to assist seniors and dependent persons at home By \href{http://www.robosoft.com/}{Robosoft}
+%    \item \href{http://www.aldebaran.com/fr/qui-est-nao}{Nao} : a small humanoid robot for child-robot interaction By \href{http://www.aldebaran.com/}{Aldebaran}
+%\end{innerlist}
+%
+%\halfblankline
+%
+%Instrumentation, Control, Data Acquisition, Test, and Measurement:
+%\begin{innerlist}
+%     \item Kinect 1 \& 2: skeletons, depth, video, audio, faces and other features extraction
+%     \item French Translation of \href{http://www.bartneck.de/2008/03/11/the-godspeed-questionnaire-series/}{Godspeed Questionnaire} and other questionnaires for HRI
+%\end{innerlist}
+%
+%\halfblankline
+%
+%Computer Programming:
+%%
+%\begin{innerlist}
+%    \item Python, C$+$$+$, Java, Bash scripting , 
+%    Cmake, OCaml, Urbi, Prolog
+%    \item OpenCV, Openhab OpenGL, ROS, Kinect SDK, Naoqi
+%    \item Numerical Analysis :  R, Gnuplot, Numpy 
+%    \item Version Control : Svn, Git
+%\end{innerlist}
+%
+%\halfblankline
+%
+%Desktop Editing and Productivity Software:
+%%
+%\begin{innerlist}
+%    \item  Eclipse, Geany, MS Visual Studio, OpenHab Designer, Qt Creator 
+%    \item \LaTeX{},Office packs
+%    \item GIMP, Inkscape, Audacity, iMovie
+%\end{innerlist}
+%
+%Operating Systems:
+%%
+%\begin{innerlist}
+%    \item  Linux (Ubuntu, Archlinux), Apple OS X, Microsoft Windows family,
+%\end{innerlist}
+
+
+
+
+
+
+%\section{Popular Press}
+%
+%\begin{bibsection}
+%
+%    \item Sigfried, Tom. ``If the world is a computer, life is an
+%        algorithm'', \emph{Science News: Context}, June 18, 2014.
+%        \url{https://www.sciencenews.org/blog/context/if-world-computer-life-algorithm}
+%
+%    \item ``The Free \& Unfree: Open Source Everywhere~-- How a Global
+%        Coding Coalition Built an Open Source Superserver'',
+%        \emph{Wired}, 12(06), June 2004.
+%
+%\end{bibsection}
+
+
+
+
+
+\section{References Available to Contact}
+\textbf{Prof.~  \href{http://magma.imag.fr/content/sylvie-pesty}{Sylvie  Pesty}}
+(e\-/mail:~\href{mailto:Sylvie.Pesty@imag.fr}{Sylvie.Pesty@imag.fr})
+%
+\begin{innerlist}
+    \item Professor at \href{http://www.iut2.upmf-grenoble.fr/-/}{University Institute of Technology} (IUT2-UPMF),
+    \item[$\diamond$] Member of \href{http://magma.imag.fr/}{MAGMA Team}, LIG-Lab
+    \item[$\star$] \emph{Prof. Pesty is my supervisor for my PhD.}
+\end{innerlist}
+\halfblankline
+
+\textbf{Prof.~ \href{http://iihm.imag.fr/calvary/}{Gaëlle Calvary}}
+(e\-/mail:~\href{mailto:Gaelle.Calvary@imag.fr}{Gaelle.Calvary@imag.fr})
+%
+\begin{innerlist}
+    \item Professor at \href{http://ensimag.grenoble-inp.fr/}{ Ensimag software engineering school}  of the Grenoble Institute of Technology,
+    \item[$\diamond$] Member of \href{http://iihm.imag.fr/calvary/}{Engineering of Computer Human Interaction Team}, LIG-Lab
+    \item[$\star$] \emph{Prof. Calvary is my co-supervisor for my PhD.}
+\end{innerlist}
+
+\halfblankline
+
+\textbf{Dr.~ \href{https://team.inria.fr/prima/vaufreydaz}{Dominique Vaufreydaz}}
+(e\-/mail:~\href{mailto:Dominique.Vaufreydaz@inria.fr}{Dominique.Vaufreydaz@inria.fr})
+%
+\begin{innerlist}
+    \item Associate Professor at \href{http://www.upmf-grenoble.fr/-/}{University Pierre Mendès-France} ,
+    \item[$\diamond$] Member of \href{https://team.inria.fr/prima/}{PRIMA Team}, INRIA \& LIG-Lab
+    \item[$\star$] \emph{Prof. Vaufreydaz was my supervisor during my Masters.}
+\end{innerlist}
+
+\section{}
+
+\section{More Information}
+More information and auxiliary documents can be found at\\%
+\url{http://wafa.johal.fr/}.
+
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% End CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------%
+% The following is copyright and licensing information for
+% redistribution of this LaTeX source code; it also includes a liability
+% statement. If this source code is not being redistributed to others,
+% it may be omitted. It has no effect on the function of the above code.
+%----------------------------------------------------------------------%
+% Copyright (c) 2007, 2008, 2009, 2010, 2011 by Theodore P. Pavlic
+%
+% Unless otherwise expressly stated, this work is licensed under the
+% Creative Commons Attribution-Noncommercial 3.0 United States License. To
+% view a copy of this license, visit
+% http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to
+% Creative Commons, 171 Second Street, Suite 300, San Francisco,
+% California, 94105, USA.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+% OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+% MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+% IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+% CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+% TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+% SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+%----------------------------------------------------------------------%
