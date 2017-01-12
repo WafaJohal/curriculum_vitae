@@ -5,7 +5,7 @@
 \RequirePackage[T1]{fontenc}
 %\usepackage{pbox}
 \usepackage[french]{babel}
-\usepackage[utf8]{inputenc}
+\usepackage[utf8x]{inputenc}
 \usepackage{lmodern}
 %\usepackage{times}
 \usepackage[bitstream-charter,euro]{mathdesign}
@@ -40,7 +40,7 @@
 
 % Provides special list environments and macros to create new ones
 \usepackage[shortlabels]{enumitem}
-
+\def\labelitemi{$\bullet$}
 % Simpler bibsections for CV sections
 % (thanks to natbib for inspiration)
 %
@@ -291,7 +291,7 @@
 % Address box
 \parbox{\textwidth-\rcollength-\spacewidth}{%
 PostDoctoral Scientist\\
-\href{http://chili.epfl.ch}{CHILI Lab} - \href{http://epfl.ch}{Ecole Polytechnique Federal de Lausanne}\\
+\href{http://chili.epfl.ch}{CHILI}/\href{http://lsro.epfl.ch}{LSRO} Labs - \href{http://epfl.ch}{{\'E}cole Polytechnique F{\'e}d{\'e}ral de Lausanne}\\
 \\
 EPFL IC ISIM CHILI \\
 RLC D1 740 (Rolex Learning Center) \\
@@ -306,7 +306,7 @@ CH-1015 Lausanne, SUISSE}
 % Non-snail-mail contact information
 \parbox{\rcollength}{%
 \textit{Mobile:} +33-6 69 69 48 16 \\
-\textit{E-mail:} \email{wafa.johal@gmail.com}\\
+\textit{E-mail:} \email{wafa.johal@epfl.ch}\\
 \textit{WWW:} \href{http://wafa.johal.fr/}{wafa.johal.fr}}
 
 \end{tabular}
@@ -332,15 +332,17 @@ CH-1015 Lausanne, SUISSE}
 % \end{innerlist}
 
 \section{Research Interests}
-I am interested in personalization using  non-verbal cues of communication during Human-Robot Interaction in educational contexts. 
-I believe that personalization of robots' behaviours will improve acceptability. I work with robots having various embodiment and try to base my models on social sciences and cognitive sciences. 
-I also have interest in affective computing, learning, symbolic reasoning and integration of companion robots in smart homes. 
-I have conducted child-robot interactions experiments from protocole design to data analysis.
+I am interested in personalization using physical and non-verbal cues of communication during Human-Robot Interaction in educational contexts. 
+I work with robots having various embodiment and try to base my models on social sciences and cognitive sciences. 
+I also have interest in affective computing, machine learning, symbolic reasoning and integration of companion robots in smart homes. 
+I have conducted child-robot interaction experiments from protocol design to data analysis.
 
 \section{Academia}
 
 \href{http://www.univ-grenoble-alpes.fr/}{\textbf{University of Grenoble Alps}}, \href{http://liglab.fr}{Laboratory of Informatics of Grenoble} - \href{http://magma.imag.fr}{MAGMA Team} France
 \begin{outerlist}
+\begin{small}
+
 
 \item[] Ph.D. Student in Computer Sciences, October 2012 - October 2015
         \begin{innerlist}
@@ -352,11 +354,12 @@ I have conducted child-robot interactions experiments from protocole design to d
                    {Prof. Gaëlle Calvary}
         \item Area of Study : Affective Computing, Human-Robot Interaction, Personalisation, Plasticity
         \end{innerlist}
-
+\end{small}
 \end{outerlist}
 \vspace{0.5cm}
 \href{https://www.ujf-grenoble.fr/?language=en}{\textbf{University Joseph Fourier}, Grenoble}, France
 \begin{outerlist}
+\begin{small}
 \item[] M.S.,
         %\href{http://www.ece.osu.edu/}
              {Computer Sciences: Graphics, Vision \& Robotics}, June 2012
@@ -367,12 +370,12 @@ I have conducted child-robot interactions experiments from protocole design to d
                    {Dr. Dominique Vaufreydaz}
         \item Area of Study : Activity Recognition, Multi-modal Data Fusion
         \end{innerlist}
-
+\end{small}
 \end{outerlist}
 \vspace{0.5cm}
 \href{http://www.upmf-grenoble.fr/}{\textbf{ Pierre-Mendès France University}, Grenoble},France
 \begin{outerlist}
-
+\begin{small}
 \item[] B.S. B.A. Mathematics and Informatics applied to Cognitive Sciences, June 2010
         \begin{innerlist}
         \item \emph{Topped, Summa cum Laude}
@@ -381,7 +384,7 @@ I have conducted child-robot interactions experiments from protocole design to d
         \item Cognitive Sciences: Memory, Learning \& Perception
         \end{innerlist}
         Exchange Student for one year in Washington College, MA (U.S.A.), 2009-2010
-
+\end{small}
 \end{outerlist}
 
 
@@ -394,25 +397,35 @@ I have conducted child-robot interactions experiments from protocole design to d
 % % space will not be needed (and should be removed).
 % \vspace{0.1in}
 
-\section{ Journal Publications}
+\section{Journal Publications}
 
-\begin{bibenum}
+\begin{itemize}
+\renewcommand\labelitemi{$\bullet$}
 	\item Mondada F., Bonnet E., Davrajh S., \textbf{Johal W.} and Stopforth R.. R2T2 : Robotics to Integrate Educational Efforts in South Africa and Europe.  \emph{International Journal of Advanced Robotic Systems}, 2016.
     \item Vaufreydaz D., \textbf{Johal W}., and Combe C.,
    Starting engagement detection towards a companion robot using multimodal features, \emph{Robotics and Autonomous} Systems, January 2015, \href{http://dx.doi.org/10.1016/j.robot.2015.01.004}{ISSN 0921-8890}.
-\end{bibenum}
+\end{itemize}
 
 \vspace{0.1in}
 
 \section{International Conference Publications}
 
-\begin{bibenum}
+\begin{itemize}
+\renewcommand\labelitemi{$\bullet$}
+\item Özgür A., \textbf{Johal W.}, Mondada F and Dillenbourg P.. Haptic-Enabled Handheld Mobile Robots:
+Design and Analysis. \emph{ACM CHI Conference on Human Factors in Computing Systems} (CHI), 2017.
 
-\item Özgür A., \textbf{Johal W.} and Dillenbourg P.. Permanent Magnet-Assisted Omnidirectional Ball Drive. \emph{International Conference on Intelligent Robots and Systems} (IROS), 2016, accepted.
+\item Özgür A., \textbf{Johal W.}, Mondada F and Dillenbourg P.. Windfield: Learning Wind Meteorology with Handheld Haptic Robots. \emph{ ACM/IEEE International Conference on Human-Robot Interaction } (HRI), 2017.
+
+\item Özgür A., Lemaignan S., \textbf{Johal W.}, Mondada F. et al.. Cellulo: Versatile Handheld Robots for Education. \emph{ ACM/IEEE International Conference on Human-Robot Interaction} (HRI), 2017.
+
+\item Adam C., \textbf{Johal W.}, Pellier D., Fiorino H. and Pesty S., Social Human-Robot Interaction: A New Cognitive and Affective Interaction-Oriented Architecture, \emph{International Conference on Social Robotics} (ICSR), 2016
+
+\item Özgür A., \textbf{Johal W.} and Dillenbourg P.. Permanent Magnet-Assisted Omnidirectional Ball Drive. \emph{International Conference on Intelligent Robots and Systems} (IROS), 2016.
 
 \item \textbf{Johal W.}, Jacq A., Paiva A. and Dillenbourg P.. Child-Robot Spatial Arrangement in a Learning by Teaching Activity. \emph{25th IEEE International Symposium on Robot and Human Interactive Communication}. August 2016. New York City, USA.
 
-\item Ta V.C, \textbf{Johal W}., Portaz M., Castelli E., Vaufreydaz D., The Grenoble system for the Social Touch Challenge at ICMI 2015. \emph{International Conference on Multimodal Interaction}. (ICMI2015). [In accepted] 
+\item Ta V.C, \textbf{Johal W}., Portaz M., Castelli E., Vaufreydaz D., The Grenoble system for the Social Touch Challenge at ICMI 2015. \emph{International Conference on Multimodal Interaction}. (ICMI2015). 
 	
 \item  \textbf{Johal W}., Calvary G., Pesty S., Non-verbal Signals in HRI: Interference in Human Perception. \emph{International Conference on Social Robotics}. (ICSR2015). 
 	
@@ -436,11 +449,12 @@ situations \emph{5th IEEE Conference on Cognitive InfoCommunications}. (CogInfoC
 
   
 
-\end{bibenum}
+\end{itemize}
 
 \section{French Conference Publications}
 
-\begin{bibenum}
+\begin{itemize}
+\renewcommand\labelitemi{$\bullet$}
 \item Jacq A., Johal W. and Dillenbourg P.. Non-recursive Approach for Mutual Understanding.. \emph{Journée de travail sur la robotique interactive et cognitive}. Avril. 2016. Toulouse, France 
 	
 \item \textbf{Johal W.}, Pesty, S., Calvary G., Des Styles pour une Personnalisation de l’Interaction Homme-Robot. \emph{Journées Nationales de la Robotique Interactive} (JNRI). Nov. 2014. Toulouse, France
@@ -451,16 +465,17 @@ situations \emph{5th IEEE Conference on Cognitive InfoCommunications}. (CogInfoC
 
   
 
-\end{bibenum}
+\end{itemize}
 
 \section{Other \\ Publications}
 
-\begin{bibenum}
+\begin{itemize}
+\renewcommand\labelitemi{$\bullet$}
 \item Jacq A., \textbf{Johal W.}, Dillenbourg P. and  Paiva A.. Cognitive Architecture for Mutual Modelling. \emph{Workshop on Cognitive Architectures for Social HRI} (HRI’16). Christchurch, New Zealand. 2016
 	
 \item \textbf{Johal W.}, Pesty S.,  Calvary G.. Expressing Parenting Styles with Companion Robots. \emph{Workshop on Applications for Emotional Robots at Human-Robot Interaction conference} (HRI’14) . Bielefeld. 2014
 
-\end{bibenum}
+\end{itemize}
 
 %
 %\section{Papers in Preparation}
@@ -473,15 +488,23 @@ situations \emph{5th IEEE Conference on Cognitive InfoCommunications}. (CogInfoC
 %	
 %\end{bibenum}
 
-\section{Intern Tutoring}
+\section{Intern and PhD Tutoring}
 
 \begin{itemize}
+\item[] \textbf{Ayberk Ozgur},
+        IC PhD Student EPFL,
+        Cellulo - Haptic Swarm Robots for Education.
+        Fall 2015-...
+\item[] \textbf{Alexis Jacq},
+        EDRS PhD Student EPFL/IST Lisbon,
+        Mutual-Modeling for CRI.
+        Fall 2015-...
     \item[] \textbf{Jérémy Lascaux},
-        Under-Graduate Student in Computer Sciences, IUT2- UPMF.
+        CS Under-Grad. Student, IUT2- UPMF.
         Developing an Affective Math Game with Nao Robot.
         Spring 2014.
 	  \item[] \textbf{Anshul Singh Parihar},
-	  Electrical Engineering, Indian Institute of Technology, Jodhpur India
+	  Electrical Engineering, IIT Jodhpur, India
 	  Agent-Based Simulation of Human-Robot Interaction for Experiment Design.
 	  Spring 2014.
 
@@ -543,6 +566,12 @@ Grenoble, France    \hfill \textbf{October 2011- January~2012}
 
 \textbf{Conferences \& Events }
 \begin{innerlist}
+\item Guest Editor Special Issue for the International Journal of Social Robotics - Springer,
+		on \href{http://r4l.epfl.ch/IJSORO}{``Robots for Learning''}.
+\item Organization Committee,
+		``Workshop on Robots for Learning'' @HRI 2017,
+		\href{http://r4l.epfl.ch/HRI2017}{R4L@HRI}.
+		Vienna, Austria - March 6, 2017.
 	\item Organization Committee,
 		``Workshop on Robots for Learning'' @RoMan 2016,
 		\href{http://r4l.epfl.ch/}{R4L}.
@@ -569,14 +598,18 @@ Grenoble, France    \hfill \textbf{October 2011- January~2012}
 
 \halfblankline
 
-\textbf{Reviews }
+\textbf{Reviewer for: }
 \begin{innerlist}
-	\item \emph{International Journal of Social Robotics},2016
-	\item \emph{IEEE Robotics and Automation Magazine (IEEE-RAM)},2016
-	\item \emph{Journal of Cognitive Systems Research}, 2016
-	\item \emph{Journal on Interaction Studies}, 2016
+	\item[-] \emph{International Journal of Human-Robot Interaction},2016
+	\item[-] \emph{International Journal of Social Robotics},2016
+	\item[-] \emph{IEEE Robotics and Automation Magazine (IEEE-RAM)},2016
+	\item[-] \emph{Journal of Cognitive Systems Research}, 2016
+	\item[-] \emph{Journal on Interaction Studies}, 2016
+	\item[-] \emph{Transaction on Learning Technologies}, 2017
+	\item \emph{ACM CHI Conference on Human Factors in Computing Systems (CHI)}, 2017
+	\item \emph{ACM Conference on Computer-Supported Cooperative Work and Social Computing (CSCW)}, 2017
 	\item \emph{International Conference on Social Robotics (ICSR)}, 2015, 2016
-	\item \emph{International Conference on Human Robot Interaction (HRI)}, 2015, 2016
+	\item \emph{International Conference on Human Robot Interaction (HRI)}, 2015, 2016, 2017
 	\item \emph{IEEE International Symposium on Robot and Human Interactive Communication (RO-MAN)}, 2014, 2015, 2016
  \end{innerlist}
 
@@ -663,6 +696,8 @@ Grenoble, France    \hfill \textbf{October 2011- January~2012}
 
 
 \section{References Available to Contact}
+%todo add ref pierre and franceso
+
 \textbf{Prof.~  \href{http://magma.imag.fr/content/sylvie-pesty}{Sylvie  Pesty}}
 (e\-/mail:~\href{mailto:Sylvie.Pesty@imag.fr}{Sylvie.Pesty@imag.fr})
 %
